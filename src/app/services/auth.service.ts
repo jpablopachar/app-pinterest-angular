@@ -82,27 +82,17 @@ export class AuthService {
   }
 
   /**
-   * Realiza una solicitud de registro o inicio de sesión según la acción especificada.
+   * Realiza una solicitud HTTP POST para registrar o iniciar sesión de un usuario.
    *
-   * Este método cancela cualquier solicitud previa de registro o inicio de sesión en curso,
-   * y luego envía una nueva solicitud HTTP al endpoint correspondiente (`/auth/{action}`).
-   * El resultado de la solicitud se maneja y se notifica a través de la señal `$authResponseSignal`.
-   *
-   * @param action Indica si la acción es de registro o inicio de sesión.
-   * @param body Los datos necesarios para el registro o inicio de sesión, según corresponda.
+   * @param action - Acción a realizar, puede ser 'register' o 'login'.
+   * @param body - Objeto que contiene los datos necesarios para el registro o inicio de sesión.
+   * @returns Un observable que emite la respuesta de autenticación del servidor.
    */
   public registerLogin(
     action: ActionAuth,
     body: RegisterRequest | LoginRequest
-  ): void {
-    this.cancelRegisterLogin$.next();
-
-    this._handleRequest(
-      this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body),
-      this.$authResponseSignal,
-      'Error en registro/inicio de sesión',
-      this.cancelRegisterLogin$
-    );
+  ): Observable<AuthResponse> {
+    return this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body);
   }
 
   /**

@@ -1,0 +1,95 @@
+<div class="authPage">
+    <div class="authContainer">
+        <!-- <Image path="/general/logo.png" w={36} h={36} alt="" /> -->
+        <h1>
+            {{ $isRegister() ? "Create an Account" : "Login to your account" }}
+        </h1>
+        @if ($isRegister()) {
+        <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+            <div class="formGroup">
+                <label for="username">Username</label>
+                <input
+                    type="username"
+                    placeholder="Username"
+                    required
+                    name="username"
+                    id="username"
+                    formControlName="username"
+                />
+            </div>
+            <div class="formGroup">
+                <label for="displayName">Name</label>
+                <input
+                    type="displayName"
+                    placeholder="Name"
+                    required
+                    name="displayName"
+                    id="displayName"
+                    formControlName="displayName"
+                />
+            </div>
+            <div class="formGroup">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    id="email"
+                    formControlName="email"
+                />
+            </div>
+            <div class="formGroup">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    name="password"
+                    id="password"
+                    formControlName="password"
+                />
+            </div>
+            <button type="submit">Register</button>
+            <p (click)="toggleAuthMode()">
+                Do you have an account? <b>Login</b>
+            </p>
+            @if ($error()) {
+            <p class="error">{{ $error() }}</p>
+            }
+        </form>
+        } @else {
+        <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+            <div class="formGroup">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    id="email"
+                    formControlName="email"
+                />
+            </div>
+            <div class="formGroup">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    name="password"
+                    id="password"
+                    formControlName="password"
+                />
+            </div>
+            <button type="submit">Login</button>
+            <p (click)="toggleAuthMode()">
+                Don&apos;t have an account? <b>Register</b>
+            </p>
+            @if ($error()) {
+            <p class="error">{{ $error() }}</p>
+            }
+        </form>
+        }
+    </div>
+</div>
