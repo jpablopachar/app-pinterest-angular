@@ -6,7 +6,8 @@ import {
 } from '@angular/core'
 import { provideRouter } from '@angular/router'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
-import { routes } from './app.routes'
+import { routes } from './app.routes';
+import { provideStore } from '@ngrx/store'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,11 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    /* importProvidersFrom(
-      ImagekitioAngularModule.forRoot({
-        publicKey: environment.imageKitPublicKey,
-        urlEndpoint: environment.imageKitUrlEndpoint,
-      })
-    ), */
-  ],
+    provideStore()
+],
 };
