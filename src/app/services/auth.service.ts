@@ -5,7 +5,7 @@ import {
   LoginRequest,
   ProfileUserResponse,
   RegisterRequest,
-} from '@app/models/auth/auth'
+} from '@app/models/auth'
 import { ActionAuth } from '@app/types/actionAuth'
 import { environment } from '@src/environments/environment'
 import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs'
