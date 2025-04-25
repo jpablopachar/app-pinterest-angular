@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { Router } from '@angular/router'
+import { ImageComponent } from '@app/components/Image/Image.component'
 import { AuthService } from '@app/services/auth.service'
 import { AuthStore } from '@app/store/auth.store'
 
@@ -49,7 +50,7 @@ interface LoginForm {
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ImageComponent],
   templateUrl: './Auth.component.html',
   styleUrl: './Auth.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

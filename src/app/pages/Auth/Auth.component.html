@@ -1,5 +1,11 @@
 <div class="authPage">
     <div class="authContainer">
+        <app-image
+            [$src]="'/general/logo.png'"
+            [$width]="36"
+            [$height]="36"
+            [$alt]="''"
+        />
         <!-- <Image path="/general/logo.png" w={36} h={36} alt="" /> -->
         <h1>
             {{ $isRegister() ? "Create an Account" : "Login to your account" }}
