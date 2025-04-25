@@ -1,1 +1,18 @@
-<p>GalleryItem works!</p>,
+<div class="galleryItem" [style.gridRowEnd]="gridRowEnd">
+    <app-image
+        [$src]="$item()!.media"
+        [$width]="372"
+        [$height]="optimizedHeight"
+        [$alt]="''"
+    />
+    <a [routerLink]="['/pin', $item()!._id]" class="overlay"></a>
+    <button class="saveButton">Save</button>
+    <div class="overlayIcons">
+        <button>
+            <app-image [$src]="'/general/share.svg'" alt="Share" />
+        </button>
+        <button>
+            <app-image [$src]="'/general/more.svg'" alt="More" />
+        </button>
+    </div>
+</div>
