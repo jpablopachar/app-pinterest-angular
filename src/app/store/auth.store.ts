@@ -14,7 +14,6 @@ interface User {
   __v: number;
 }
 
-// Definir el estado del store
 interface AuthState {
   currentUser: User | null;
 }
@@ -29,18 +28,14 @@ export const AuthStore = signalStore(
     removeCurrentUser(): void {
       patchState(store, { currentUser: null });
     },
-    updateCurrentUser(updatedUser: Partial<User>): void {
-      patchState(store, (state) => ({
-        currentUser: state.currentUser
-          ? { ...state.currentUser, ...updatedUser }
-          : null,
-      }));
+    updateCurrentUser(updatedUser: User): void {
+      patchState(store, { currentUser: updatedUser });
     },
   }))
 );
 
-export function useCurrentUser() {
+export const currentUser = () => {
   const authStore = inject(AuthStore);
 
   return computed(() => authStore.currentUser);
-}
+};
