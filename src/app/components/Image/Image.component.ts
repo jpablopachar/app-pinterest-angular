@@ -9,11 +9,6 @@ import { environment } from '@src/environments/environment'
 
 @Component({
   selector: 'app-image',
-  /* imports: [ImagekitioAngularModule.forRoot({
-    publicKey: environment.imagekit.publicKey,
-    urlEndpoint: environment.imagekit.urlEndpoint,
-    authenticationEndpoint: environment.imagekit.authenticationEndpoint
-  })], */
   imports: [CommonModule, NgOptimizedImage],
   providers: [provideImageKitLoader(environment.imageKitUrlEndpoint)],
   template: `<img
@@ -27,7 +22,6 @@ import { environment } from '@src/environments/environment'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageComponent {
-  public $path = input<string | null>(null);
   public $src = input<string | SafeValue>('');
   public $alt = input<string | null>(null);
   public $width = input<number | null>(null);

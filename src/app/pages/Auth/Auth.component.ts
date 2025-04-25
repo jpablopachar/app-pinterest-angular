@@ -123,7 +123,7 @@ export class AuthComponent {
           this._router.navigate(['/']);
         },
         error: (err) => {
-          this.$error.set(err.message);
+          this.$error.set(err.error.message);
         },
       });
   }

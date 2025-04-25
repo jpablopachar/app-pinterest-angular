@@ -44,4 +44,4 @@ Thumbs.db
 # Compiled files
 *.env
 
-/environments/*.ts
+/src/environments/*.ts
