@@ -1,0 +1,26 @@
+<div class="leftBar">
+    <div class="menuIcons">
+        <a routerLink="/" class="menuIcon">
+            <app-image
+                [$src]="'/general/logo.png'"
+                [$class]="'logo'"
+                [$alt]="'Logo'"
+            />
+        </a>
+        <a routerLink="/" class="menuIcon">
+            <app-image [$src]="'/general/home.svg'" [$alt]="'Home'" />
+        </a>
+        <a routerLink="/create" class="menuIcon">
+            <app-image [$src]="'/general/create.svg'" [$alt]="'Create'" />
+        </a>
+        <a routerLink="/updates" class="menuIcon">
+            <app-image [$src]="'/general/updates.svg'" [$alt]="'Updates'" />
+        </a>
+        <a routerLink="/messages" class="menuIcon">
+            <app-image [$src]="'/general/messages.svg'" [$alt]="'Messages'" />
+        </a>
+    </div>
+    <a routerLink="/settings" class="menuIcon">
+        <app-image [$src]="'/general/settings.svg'" [$alt]="'Settings'" />
+    </a>
+</div>
