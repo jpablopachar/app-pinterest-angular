@@ -127,6 +127,70 @@ Example format:
  * @remarks [Additional Spanish notes if needed]
  */
 ```
+### State Management
+
+- **Signal-Based State**: Use Angular signals as the primary state management mechanism for reactive applications.
+  - Use `signal<T>()` to create a writable signal for mutable state
+  - Use `computed()` to derive state from other signals
+  - Use `effect()` for side effects in response to signal changes
+  - Use `.set()` for replacing state and `.update()` for transforming existing state
+  
+- **Signal Store Pattern**: Implement a store pattern using signals for more complex state management.
+  - Create store classes to encapsulate related state and logic
+  - Expose read-only signals (`asReadonly()`) to prevent external mutation
+  - Implement methods to update state in a controlled manner
+  - Use `patchState()` for partial state updates in signal stores
+
+- **Component State Management**:
+  - Keep component-specific state within the component using signals
+  - For shared state, use injectable services with signals
+  - Lift state up to parent components or dedicated store services when needed
+  - Use inputs and outputs for component communication
+
+- **State Organization**:
+  - Organize state based on domain/feature areas (auth, pins, boards)
+  - Keep UI state separate from domain state
+  - Use models and interfaces to strongly type all state
+  - Document the state shape and purpose with JSDoc comments in Spanish
+
+- **State Access Patterns**:
+  - Use dependency injection to provide state from services to components
+  - Create selector functions for derived state
+  - Implement facade patterns for complex features
+  - Use the async pipe with signals when appropriate
+
+Example signal store implementation with Spanish documentation:
+
+```typescript
+/**
+ * Almacén de autenticación que gestiona el estado del usuario actual y sus operaciones.
+ * 
+ * @remarks Utiliza el patrón de Signal Store para proporcionar gestión de estado reactiva.
+ */
+export const AuthStore = signalStore(
+  { providedIn: 'root' },
+  withState<AuthState>({ currentUser: null }),
+  withDevtools('auth'),
+  withMethods((store) => ({
+    /**
+     * Establece el usuario actual en el almacén.
+     * 
+     * @param user - Respuesta de autenticación que contiene los datos del usuario
+     */
+    setCurrentUser(user: AuthResponse): void {
+      patchState(store, { currentUser: user });
+    },
+    
+    /**
+     * Elimina los datos del usuario actual del almacén.
+     * Útil para operaciones de cierre de sesión.
+     */
+    removeCurrentUser(): void {
+      patchState(store, { currentUser: null });
+    }
+  }))
+);
+```
 
 ### Performance Optimization
 
