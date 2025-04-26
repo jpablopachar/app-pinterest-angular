@@ -1,21 +1,20 @@
-<div class="gallery">
-    <cdk-virtual-scroll-viewport
-        itemSize="400"
-        class="gallery-viewport"
-        (scrolledIndexChange)="onScroll($event)"
-    >
-        <ng-container [ngSwitch]="$resource.status">
-            <div class="gallery" *ngSwitchCase="'success'">
-                <app-gallery-item
-                    *ngFor="let item of $pins(); trackBy: trackById"
-                    [item]="item"
-                ></app-gallery-item>
-            </div>
-            <app-skeleton *ngSwitchCase="'pending'"></app-skeleton>
-            <div *ngSwitchCase="'error'">
-                Error: {{ $resource.error | json }}
-            </div>
-        </ng-container>
-        <h4 *ngIf="$isLoadingMore()">Loading more pins...</h4>
-    </cdk-virtual-scroll-viewport>
-</div>
+<cdk-virtual-scroll-viewport
+    [itemSize]="$pins().length"
+    class="viewport"
+    (scrolledIndexChange)="onScroll($event)"
+>
+    @switch ($resource.status()) { @case (4) {
+        <div class="gallery">
+            <ng-container *cdkVirtualFor="let pin of $pins()">
+                <app-gallery-item [$item]="pin" />
+            </ng-container>
+        </div>
+    } @case (2) {
+    <app-skeleton />
+    } @case (1) {
+    <div>Error: {{ $resource.error() | json }}</div>
+    } }
+    @if ($isLoadingMore()) {
+    <h4>Loading more pins...</h4>
+    }
+</cdk-virtual-scroll-viewport>

@@ -3,8 +3,9 @@
 	position: relative;
 }
 
-.galleryItem img {
+.galleryItem ::ng-deep app-image img {
 	width: 100%;
+	height: auto;
 	border-radius: 16px;
 	object-fit: cover;
 }

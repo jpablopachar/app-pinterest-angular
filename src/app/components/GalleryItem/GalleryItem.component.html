@@ -1,8 +1,8 @@
-<div class="galleryItem" [style.gridRowEnd]="gridRowEnd">
+<div class="galleryItem" [style.gridRowEnd]="$gridRowEnd()">
     <app-image
         [$src]="$item()!.media"
         [$width]="372"
-        [$height]="optimizedHeight"
+        [$height]="$optimizedHeight()"
         [$alt]="''"
     />
     <a [routerLink]="['/pin', $item()!._id]" class="overlay"></a>

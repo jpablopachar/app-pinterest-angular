@@ -23,8 +23,8 @@ import { environment } from '@src/environments/environment'
 })
 export class ImageComponent {
   public $src = input<string | SafeValue>('');
-  public $alt = input<string | null>(null);
-  public $width = input<number | null>(null);
-  public $height = input<number | null>(null);
+  public $alt = input<string | string>('');
+  public $width = input<number | null>(20);
+  public $height = input<number | null>(20);
   public $class = input<string | null>(null);
 }

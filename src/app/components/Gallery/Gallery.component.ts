@@ -53,8 +53,6 @@ export class GalleryComponent {
     effect(() => {
       const resource = this.$resource;
 
-      console.log('resource', resource);
-
       if (!resource.isLoading() && resource.value()) {
         this.$pins.update((prev) => [...prev, ...resource.value()!.pins]);
         this.$nextCursor.set(resource.value()!.nextCursor);

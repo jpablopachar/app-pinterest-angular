@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  input,
+  signal,
+} from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { Item } from '@app/models/item'
-import { ImageComponent } from "../Image/Image.component"
+import { ImageComponent } from '../Image/Image.component'
 
 @Component({
   selector: 'app-gallery-item',
@@ -13,6 +19,20 @@ import { ImageComponent } from "../Image/Image.component"
 export class GalleryItemComponent {
   public $item = input<Item | null>(null);
 
-  public optimizedHeight = (372 * this.$item()!.height) / this.$item()!.width;
-  public gridRowEnd = `span ${Math.ceil(this.$item()!.height / 100)}`;
+  public $optimizedHeight = signal(0);
+  public $gridRowEnd = signal('');
+
+  constructor() {
+    effect(() => {
+      const item = this.$item();
+
+      if (item) {
+        this.$optimizedHeight.set(Math.round((372 * item.height) / item.width));
+        this.$gridRowEnd.set(`span ${Math.ceil(item.height / 100)}`);
+
+        console.log(this.$optimizedHeight());
+        console.log(this.$gridRowEnd());
+      }
+    });
+  }
 }
