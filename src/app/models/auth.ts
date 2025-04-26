@@ -32,6 +32,7 @@ export interface LoginRequest {
  * @property {string} email - Correo electrónico del usuario.
  * @property {string | Date} updatedAt - Fecha de última actualización del usuario.
  * @property {string} username - Nombre de usuario único.
+ * @property {string} [img] - URL de la imagen de perfil del usuario (opcional).
  * @property {string} _id - Identificador único del usuario.
  * @property {number} __v - Versión del documento (usado por MongoDB).
  */
@@ -41,6 +42,7 @@ export interface AuthResponse {
   email: string;
   updatedAt: string | Date;
   username: string;
+  img?: string;
   _id: string;
   __v: number;
 }

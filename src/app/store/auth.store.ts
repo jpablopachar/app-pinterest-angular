@@ -1,10 +1,16 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit'
-import { computed, inject } from '@angular/core'
+import { computed } from '@angular/core'
 import { AuthResponse } from '@app/models/auth'
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals'
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from '@ngrx/signals'
 
 interface AuthState {
-  currentUser: AuthResponse | null;
+  currentUser: AuthResponse | null
 }
 
 export const AuthStore = signalStore(
@@ -13,19 +19,16 @@ export const AuthStore = signalStore(
   withDevtools('auth'),
   withMethods((store) => ({
     setCurrentUser(user: AuthResponse): void {
-      patchState(store, { currentUser: user });
+      patchState(store, { currentUser: user })
     },
     removeCurrentUser(): void {
-      patchState(store, { currentUser: null });
+      patchState(store, { currentUser: null })
     },
     updateCurrentUser(updatedUser: AuthResponse): void {
-      patchState(store, { currentUser: updatedUser });
+      patchState(store, { currentUser: updatedUser })
     },
-  }))
-);
-
-export const currentUser = () => {
-  const authStore = inject(AuthStore);
-
-  return computed(() => authStore.currentUser);
-};
+  })),
+  withComputed((store) => ({
+    $currentUser: computed(() => store.currentUser()),
+  })),
+)

@@ -29,9 +29,6 @@ export class GalleryItemComponent {
       if (item) {
         this.$optimizedHeight.set(Math.round((372 * item.height) / item.width));
         this.$gridRowEnd.set(`span ${Math.ceil(item.height / 100)}`);
-
-        console.log(this.$optimizedHeight());
-        console.log(this.$gridRowEnd());
       }
     });
   }

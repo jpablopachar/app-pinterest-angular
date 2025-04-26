@@ -1,1 +1,24 @@
-<p>UserButton works!</p>,
+@let currentUser = authStore.$currentUser();
+@if (currentUser) {
+    <div class="userButton">
+        <app-image [$src]="currentUser?.img || '/general/noAvatar.png'" />
+        <div (click)="toggleMenu()">
+            <app-image
+                [$class]="'arrow'"
+                [$src]="'/general/arrow.svg'"
+                [$alt]="''"
+            />
+        </div>
+        @if ($open()) {
+            <div class="userOptions">
+                <a class="userOption" [routerLink]="['/profile', currentUser?.username]"
+                    >Profile</a
+                >
+                <div class="userOption">Setting</div>
+                <div class="userOption" (click)="handleLogout()">Logout</div>
+            </div>
+        }
+    </div>
+} @else {
+    <a routerLink="/auth" class="loginLink">Login / Sign up</a>
+}

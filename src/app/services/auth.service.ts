@@ -14,9 +14,9 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class AuthService {
-  private _http = inject(HttpClient);
+  private _http = inject(HttpClient)
 
-  private _url = `${environment.apiUrl}/users`;
+  private _url = `${environment.apiUrl}/users`
 
   /**
    * Realiza una solicitud HTTP POST para registrar o iniciar sesión de un usuario.
@@ -27,9 +27,9 @@ export class AuthService {
    */
   public registerLogin(
     action: ActionAuth,
-    body: RegisterRequest | LoginRequest
+    body: RegisterRequest | LoginRequest,
   ): Observable<AuthResponse> {
-    return this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body);
+    return this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body)
   }
 
   /**
@@ -38,7 +38,7 @@ export class AuthService {
    * @returns Un Observable que emite un objeto con un mensaje de confirmación al cerrar sesión.
    */
   public logout(): Observable<{ message: string }> {
-    return this._http.post<{ message: string }>(`${this._url}/auth/logout`, {});
+    return this._http.post<{ message: string }>(`${this._url}/auth/logout`, {})
   }
 
   /**
@@ -48,7 +48,7 @@ export class AuthService {
    * @returns Un Observable que emite los datos del perfil del usuario solicitado.
    */
   public getUser(username: string): Observable<ProfileUserResponse> {
-    return this._http.get<ProfileUserResponse>(`${this._url}/${username}`);
+    return this._http.get<ProfileUserResponse>(`${this._url}/${username}`)
   }
 
   /**
@@ -60,7 +60,7 @@ export class AuthService {
   public followUser(username: string): Observable<{ message: string }> {
     return this._http.post<{ message: string }>(
       `${this._url}/follow/${username}`,
-      {}
-    );
+      {},
+    )
   }
 }
