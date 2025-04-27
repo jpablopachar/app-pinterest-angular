@@ -1,0 +1,31 @@
+@let boards = $resource;
+
+@switch (boards.status()) {
+    @case (4) {
+        <div>Cargando...</div>
+    } @case (2) {
+        <div class="collections">
+        @for (board of boards.value(); track board._id) {
+            <a
+                [routerLink]="['/search']"
+                [queryParams]="{ boardId: board._id }"
+                class="collection"
+            >
+                <app-image [$src]="board.firstPin.media" [$alt]="''" />
+                <div class="collection-info">
+                    <h1>{{ board.title }}</h1>
+                    <span>
+                        {{ board.pinCount }} Pins ·
+                        {{ board.createdAt | appTime }}
+                    </span>
+                </div>
+            </a>
+        }
+        </div>
+    } @case (1) {
+        <div>
+            Ha ocurrido un error:
+            {{ (boards.error() | json) || 'No se pudo cargar la información.' }}
+        </div>
+    }
+}
