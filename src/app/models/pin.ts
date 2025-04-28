@@ -1,3 +1,5 @@
+import { UserPin } from './auth'
+
 /**
  * Representa la respuesta de una consulta de pines.
  *
@@ -5,8 +7,8 @@
  * @property {Pin[]} pins - Lista de pines obtenidos en la respuesta.
  */
 export interface PinsResponse {
-  nextCursor: number | null;
-  pins: Pin[];
+  nextCursor: number | null
+  pins: Pin[]
 }
 
 /**
@@ -27,19 +29,19 @@ export interface PinsResponse {
  * @property {__v} number - Versión del documento (usado por sistemas como Mongoose).
  */
 export interface Pin {
-  _id: string;
-  media: string;
-  width: number;
-  height: number;
-  title: string;
-  description: string;
-  link: null;
-  board: string;
-  tags: string[];
-  user: string;
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
+  _id: string
+  media: string
+  width: number
+  height: number
+  title: string
+  description: string
+  link: string | null
+  board: string
+  tags: string[]
+  user: UserPin
+  createdAt: Date
+  updatedAt: Date
+  __v: number
 }
 
 /**
@@ -51,8 +53,21 @@ export interface Pin {
  * @property [boardId] - (Opcional) Identificador del tablero para filtrar los pines por tablero.
  */
 export interface PinsParams {
-  pageParam: number;
-  search?: string;
-  userId?: string;
-  boardId?: string;
+  pageParam: number
+  search?: string
+  userId?: string
+  boardId?: string
+}
+
+/**
+ * Respuesta para verificar la interacción de un usuario con un pin.
+ *
+ * @property {boolean} isSaved Indica si el pin ha sido guardado por el usuario.
+ * @property {boolean} isLiked Indica si el pin ha sido marcado como "me gusta" por el usuario.
+ * @property {number} likeCount Número total de "me gusta" que tiene el pin.
+ */
+export interface PinInteractionCheckResponse {
+  isSaved: boolean
+  isLiked: boolean
+  likeCount: number
 }

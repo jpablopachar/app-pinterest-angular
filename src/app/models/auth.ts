@@ -73,3 +73,17 @@ export interface ProfileUserResponse {
   isFollowing: boolean;
   __v: number;
 }
+
+/**
+ * Representa un usuario en el sistema de pines.
+ *
+ * @property displayName - Nombre visible del usuario.
+ * @property username - Nombre de usuario único.
+ * @property _id - Identificador único del usuario.
+ */
+export interface UserPin {
+  displayName: string
+  username: string
+  _id: string
+  img?: string
+}
