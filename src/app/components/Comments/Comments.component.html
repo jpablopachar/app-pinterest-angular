@@ -1,1 +1,16 @@
-<p>Comments works!</p>,
+<form class="commentForm" (ngSubmit)="handleSubmit($event)">
+    <input
+        type="text"
+        placeholder="Add a comment"
+        (change)="handleDesc($event)"
+        [value]="$desc()"
+    />
+    <div class="emoji">
+        <div style="cursor: pointer;" (click)="handleOpen()">😊</div>
+        @if ($open()) {
+            <div class="emojiPicker">
+                <emoji-mart (emojiClick)="handleEmojiSelect($event)"></emoji-mart>
+            </div>
+        }
+    </div>
+</form>

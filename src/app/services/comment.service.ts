@@ -32,6 +32,6 @@ export class CommentService {
    * @returns Un Observable que emite el comentario creado.
    */
   public addComment(body: CommentRequest): Observable<Comment> {
-    return this._http.post<Comment>(this._url, body)
+    return this._http.post<Comment>(this._url, body, { withCredentials: true })
   }
 }
