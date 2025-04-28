@@ -6,11 +6,11 @@
         [value]="$desc()"
     />
     <div class="emoji">
-        <div style="cursor: pointer;" (click)="handleOpen()">😊</div>
-        @if ($open()) {
-            <div class="emojiPicker">
-                <emoji-mart (emojiClick)="handleEmojiSelect($event)"></emoji-mart>
-            </div>
-        }
+    <div style="cursor: pointer;" (click)="handleOpen()">😊</div>
+    @if ($open()) {
+        <div class="emojiPicker">
+            <emoji-mart (emojiClick)="handleEmojiSelect($event)"></emoji-mart>
+        </div>
+    }
     </div>
 </form>
