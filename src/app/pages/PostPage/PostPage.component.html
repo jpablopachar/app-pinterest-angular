@@ -11,7 +11,7 @@
         @let pin = resource.value();
 
         @if (pin) {
-            <div class="post-page">
+            <div class="postPage">
                 <svg
                     height="20"
                     viewBox="0 0 24 24"
@@ -23,15 +23,15 @@
                         d="M8.41 4.59a2 2 0 1 1 2.83 2.82L8.66 10H21a2 2 0 0 1 0 4H8.66l2.58 2.59a2 2 0 1 1-2.82 2.82L1 12z"
                     ></path>
                 </svg>
-                <div class="post-container">
-                    <div class="post-img">
-                        <app-image [$src]="pin.media" [$alt]="''" [$width]="736" [$height]="pin.height" />
+                <div class="postContainer">
+                    <div class="postImg">
+                        <app-image [$src]="pin.media" [$alt]="''" [$width]="736" [$height]="490" />
                     </div>
-                    <div class="post-details">
+                    <div class="postDetails">
                         <app-post-interactions [$postId]="pin._id" />
                         <a
                             [routerLink]="['/', pin.user.username]"
-                            class="post-user"
+                            class="postUser"
                         >
                             <app-image
                                 [$src]="

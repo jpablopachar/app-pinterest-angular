@@ -19,7 +19,7 @@
 	background-color: #c8bcaf;
 }
 
-.postImg img {
+.postImg :ng-deep app-image img {
 	width: 100%;
 	height: 100%;
 	/* FIXED: IMAGE */
@@ -43,7 +43,7 @@
 	gap: 8px;
 }
 
-.postUser img {
+.postUser :ng-deep app-image img {
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
