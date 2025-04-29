@@ -1,0 +1,34 @@
+<div class="layers">
+    <div class="layersTitle">
+        <h3>Layers</h3>
+        <p>Select a layer to edit</p>
+    </div>
+    <div
+        class="layer"
+        [ngClass]="editorStore.$selectedLayer() === 'text' ? 'selected' : ''"
+        (click)="handleSelectedLayer('text')"
+    >
+        <div class="layerImage">
+            <app-image
+                [$src]="'/general/text.png'"
+                [$width]="40"
+                [$height]="40"
+                [$alt]="''"
+            />
+        </div>
+        <span>Add Text</span>
+    </div>
+    <div
+        class="layer"
+        [ngClass]="editorStore.$selectedLayer() === 'image' ? 'selected' : ''"
+        (click)="handleSelectedLayer('canvas')"
+    >
+        <div
+            class="layerImage"
+            [style.backgroundColor]="
+                editorStore.$canvasOptions().backgroundColor
+            "
+        ></div>
+        <span>Canvas</span>
+    </div>
+</div>
