@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core'
 import { FormsModule } from '@angular/forms'
@@ -20,6 +21,8 @@ export class CommentFormComponent {
   private _commentService = inject(CommentService)
 
   public $id = input.required<string>()
+
+  public $reloadComments = output<void>()
 
   public $open = signal(false)
   public $desc = signal('')
@@ -45,6 +48,8 @@ export class CommentFormComponent {
       next: () => {
         this.$desc.set('')
         this.$open.set(false)
+
+        this.$reloadComments.emit()
       },
     })
   }
