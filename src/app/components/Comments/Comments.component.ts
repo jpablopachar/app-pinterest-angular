@@ -1,18 +1,18 @@
+import { httpResource } from '@angular/common/http'
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   input,
-  signal,
 } from '@angular/core'
-import { FormsModule } from '@angular/forms'
-import { CommentRequest } from '@app/models/comment'
+import { Comment } from '@app/models/comment'
 import { CommentService } from '@app/services/comment.service'
-import { PickerComponent } from '@ctrl/ngx-emoji-mart'
+import { CommentComponent } from '../Comment/Comment.component'
+import { CommentFormComponent } from '../CommentForm/CommentForm.component'
 
 @Component({
   selector: 'app-comments',
-  imports: [FormsModule, PickerComponent],
+  imports: [CommentComponent, CommentFormComponent],
   templateUrl: './Comments.component.html',
   styleUrl: './Comments.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,60 +22,7 @@ export class CommentsComponent {
 
   public $id = input.required<string>()
 
-  public $open = signal(false)
-  public $desc = signal('')
-
-  /**
-   * Maneja el evento de envío del formulario de comentarios.
-   *
-   * Previene el comportamiento por defecto del formulario, construye el objeto de solicitud
-   * con la descripción y el identificador del pin, y llama al servicio para agregar el comentario.
-   * Al completar exitosamente la operación, limpia el campo de descripción y cierra el formulario.
-   *
-   * @param event El evento de envío del formulario (`SubmitEvent`).
-   */
-  public handleSubmit(event: SubmitEvent): void {
-    event.preventDefault()
-
-    const body: CommentRequest = {
-      description: this.$desc(),
-      pin: this.$id(),
-    }
-
-    this._commentService.addComment(body).subscribe({
-      next: () => {
-        this.$desc.set('')
-        this.$open.set(false)
-      },
-    })
-  }
-
-  public handleDesc(event: Event): void {
-    const value = (event.target as HTMLInputElement).value
-
-    this.$desc.set(value)
-  }
-
-  /**
-   * Alterna el estado de apertura del componente de comentarios.
-   *
-   * Este método invierte el valor actual de la propiedad reactiva `$open`,
-   * permitiendo abrir o cerrar la sección de comentarios según su estado previo.
-   */
-  public handleOpen(): void {
-    this.$open.update((prev) => !prev)
-  }
-
-  /**
-   * Maneja la selección de un emoji por parte del usuario.
-   *
-   * @param event - El evento que contiene la información del emoji seleccionado,
-   *                incluyendo la propiedad `emoji.native` que representa el emoji en formato de texto.
-   *
-   * Actualiza la descripción agregando el emoji seleccionado al texto existente.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public handleEmojiSelect(event: any): void {
-    this.$desc.update((prev) => prev + ' ' + event.emoji.native)
-  }
+  public $resource = httpResource<Comment[]>(() =>
+    this._commentService.getComments(this.$id()),
+  )
 }

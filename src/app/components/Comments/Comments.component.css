@@ -14,39 +14,39 @@
 	overflow-y: auto;
 }
 
-.comment {
+::ng-deep app-comment .comment {
 	display: flex;
 	gap: 16px;
 }
 
-.comment img {
+::ng-deep app-comment .comment ::ng-deep app-image img {
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
 	object-fit: cover;
 }
 
-.commentContent {
+::ng-deep app-comment .commentContent {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 }
 
-.commentUsername {
+::ng-deep app-comment .commentUsername {
 	font-weight: 500;
 	font-size: 14px;
 }
 
-.commentText {
+::ng-deep app-comment .commentText {
 	font-size: 14px;
 }
 
-.commentTime {
+::ng-deep app-comment .commentTime {
 	font-size: 12px;
 	color: #a6a6a6;
 }
 
-.commentForm {
+::ng-deep app-comment-form .commentForm {
 	background-color: #f1f1f1;
 	padding: 16px;
 	border-radius: 32px;
@@ -55,7 +55,7 @@
 	gap: 16px;
 }
 
-.commentForm input {
+::ng-deep app-comment-form .commentForm input {
 	flex: 1;
 	border: none;
 	outline: none;
@@ -63,13 +63,13 @@
 	font-size: 16px;
 }
 
-.emoji {
+::ng-deep app-comment-form .emoji {
 	cursor: pointer;
 	font-size: 20px;
 	position: relative;
 }
 
-.emojiPicker {
+::ng-deep app-comment-form .emojiPicker {
 	position: absolute;
 	right: 0;
 	bottom: 50px;

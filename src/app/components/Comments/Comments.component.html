@@ -1,16 +1,27 @@
-<form class="commentForm" (ngSubmit)="handleSubmit($event)">
-    <input
-        type="text"
-        placeholder="Add a comment"
-        (change)="handleDesc($event)"
-        [value]="$desc()"
-    />
-    <div class="emoji">
-    <div style="cursor: pointer;" (click)="handleOpen()">😊</div>
-    @if ($open()) {
-        <div class="emojiPicker">
-            <emoji-mart (emojiClick)="handleEmojiSelect($event)"></emoji-mart>
+@let resource = $resource;
+
+@switch (resource.status()) {
+    @case (2) {
+        <div>Cargando...</div>
+    } @case (1) {
+        <div>
+            Ha ocurrido un error: {{ resource.error() || 'Error desconocido' }}
         </div>
+    } @case (4) {
+        @let comments = resource.value();
+
+        @if (comments) {
+            <div class="comments">
+                <div class="commentList">
+                    <span class="commentCount">
+                        {{comments.length === 0 ? 'No comments' : comments.length + ' Comments'}}
+                    </span>
+                    @for (comment of comments; track comment._id) {
+                        <app-comment [$comment]="comment" />
+                    }
+                </div>
+                <app-comment-form [$id]="$id()" />
+            </div>
+        }
     }
-    </div>
-</form>
+}
