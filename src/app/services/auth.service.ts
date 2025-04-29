@@ -29,7 +29,7 @@ export class AuthService {
     action: ActionAuth,
     body: RegisterRequest | LoginRequest,
   ): Observable<AuthResponse> {
-    return this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body)
+    return this._http.post<AuthResponse>(`${this._url}/auth/${action}`, body, { withCredentials: true })
   }
 
   /**

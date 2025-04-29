@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
+import { AuthStore } from './store/auth.store'
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'app-pinterest-angular';
+  private _authStore = inject(AuthStore)
+
+  constructor() {
+    this._authStore.loadCurrentUser()
+  }
 }
