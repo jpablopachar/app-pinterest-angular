@@ -22,7 +22,7 @@ export class CommentsComponent implements OnInit {
   private _commentService = inject(CommentService)
 
   public $id = input.required<string>()
-  // public $getComments = output<void>()
+
   public $comments = signal<Comment[] | null>(null)
   public $loading = signal<boolean | null>(null)
   public $error = signal<string | null>(null)

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { ResourceResponse } from '@app/models/general'
-import { PinsParams } from '@app/models/pin'
+import { PinInteractionCheckResponse, PinsParams } from '@app/models/pin'
 import { ActionPin } from '@app/types/actionPin'
 import { environment } from '@src/environments/environment'
 import { Observable } from 'rxjs'
@@ -53,15 +53,20 @@ export class PinService {
   }
 
   /**
-   * Obtiene la información de interacción para un pin específico.
+   * Obtiene el estado de interacción del usuario con un pin específico.
    *
-   * @param id - El identificador único del pin para el cual se desea verificar la interacción.
-   * @returns Un objeto `ResourceResponse` que contiene la URL para consultar el estado de interacción del pin.
+   * Realiza una solicitud HTTP GET al endpoint de interacción para verificar si el usuario ha interactuado
+   * (por ejemplo, ha dado "me gusta" o guardado) con el pin identificado por el `postId` proporcionado.
+   *
+   * @param postId - El identificador único del pin a consultar.
+   * @returns Un observable que emite la respuesta con el estado de interacción del pin.
    */
-  public getInteractionCheckByPin(id: string): ResourceResponse {
-    return {
-      url: `${this._url}/interaction-check/${id}`,
-    }
+  public getInteractionCheckByPin(
+    postId: string,
+  ): Observable<PinInteractionCheckResponse> {
+    return this._http.get<PinInteractionCheckResponse>(
+      `${this._url}/interaction-check/${postId}`,
+    )
   }
 
   /**
