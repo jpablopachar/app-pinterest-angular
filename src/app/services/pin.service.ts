@@ -80,8 +80,12 @@ export class PinService {
     id: string,
     type: ActionPin,
   ): Observable<{ message: string }> {
-    return this._http.post<{ message: string }>(`${this._url}/interact/${id}`, {
-      type,
-    })
+    return this._http.post<{ message: string }>(
+      `${this._url}/interact/${id}`,
+      {
+        type,
+      },
+      { withCredentials: true },
+    )
   }
 }

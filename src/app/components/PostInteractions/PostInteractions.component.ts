@@ -33,9 +33,10 @@ export class PostInteractionsComponent implements OnInit {
   /**
    * Obtiene y actualiza el estado de interacción de un pin específico.
    *
-   * Este método llama al servicio `_pinService.getInteractionCheckByPin` pasando el `postId` del pin.
-   * Al recibir la respuesta, actualiza el observable `$data` con los datos obtenidos.
-   * En caso de error, establece `$data` en `null`.
+   * Este método utiliza el servicio `_pinService` para consultar si existe una interacción
+   * con el pin identificado por `postId`. Mientras se realiza la petición, establece el estado
+   * de carga a `true`. Al recibir la respuesta, actualiza los datos y restablece el estado de carga.
+   * En caso de error, limpia los datos y también restablece el estado de carga.
    *
    * @param postId - El identificador único del pin para verificar la interacción.
    */
