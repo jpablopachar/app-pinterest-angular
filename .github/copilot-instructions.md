@@ -28,25 +28,30 @@ The application follows modern Angular practices including signals for state man
 
 ## Folder Structure
 
-The project follows a feature-based folder structure:
+The project follows a feature-based folder structure with a clear separation of concerns:
 
 ```
 src/
 ├── app/
-│   ├── components/            # Shared UI components
-│   ├── layouts/               # Page layout components
-│   ├── models/                # TypeScript interfaces and types
-│   ├── pages/                 # Page components (smart containers)
-│   ├── routes/                # Route configurations
-│   ├── services/              # Services for API calls and business logic
-│   ├── types/                 # TypeScript type definitions
-│   ├── utils/                 # Helper functions and utilities
+│   ├── components/            # Reusable UI components used across features
+│   │   ├── common/            # General-purpose components (buttons, cards, etc.)
+│   │   └── feature/           # Feature-specific components (Pin, Board, etc.)
+│   ├── layouts/               # Layout components (shells for page structure)
+│   ├── models/                # TypeScript interfaces, types, and data models
+│   ├── pages/                 # Page components (smart containers) organized by feature
+│   ├── routes/                # Route configurations and guards
+│   ├── services/              # Services for API communication and business logic
+│   ├── store/                 # Signal-based state management stores
+│   ├── types/                 # TypeScript type definitions and utility types
+│   ├── utils/                 # Helper functions and utility services
+│   ├── pipes/                 # Custom Angular pipes
+│   ├── directives/            # Custom Angular directives
 │   ├── app.config.ts          # Application configuration
 │   ├── app.routes.ts          # Root routes configuration
 │   └── app.component.ts       # Root component
-├── assets/                    # Static assets (images, icons)
+├── assets/                    # Static assets (images, icons, fonts)
 ├── environments/              # Environment-specific configuration
-└── styles/                    # Global styles
+└── styles/                    # Global styles and theme variables
 ```
 
 ### Component Pattern
@@ -94,15 +99,51 @@ Components should follow these structural patterns:
 
 ### Naming Conventions
 
-- **Components**: Use PascalCase for component names (e.g., `GalleryComponent`, `AuthComponent`) with a `.component.ts` suffix.
-- **Services**: Use PascalCase for service names (e.g., `AuthService`) with a `.service.ts` suffix.
-- **Interfaces and Models**: Use PascalCase for interface and model names (e.g., `Pin`, `AuthResponse`).
+- **Files and Folders**:
+  - Use kebab-case for file and folder names (e.g., `pin-gallery`, `auth-form`)
+  - Use descriptive, feature-related names for folders
+  - Group related files in the same directory
+
+- **Components**:
+  - Use PascalCase for component class names (e.g., `PinGalleryComponent`, `AuthFormComponent`)
+  - Use kebab-case for component selectors with a custom prefix (e.g., `app-pin-gallery`, `app-auth-form`)
+  - Use suffixes to identify file types:
+    - `.component.ts` - Component logic
+    - `.component.html` - Component template
+    - `.component.css` - Component styles
+    - `.component.spec.ts` - Component tests
+
+- **Services**:
+  - Use PascalCase for service class names (e.g., `AuthService`, `PinService`) with a `.service.ts` suffix
+  - Use descriptive names that clearly indicate the service's functionality
+
+- **Interfaces and Models**:
+  - Use PascalCase for interface and model names (e.g., `Pin`, `User`, `AuthResponse`)
+  - Prefer not to use 'I' prefix for interfaces
+  - Use `.model.ts` suffix for model files, `.interface.ts` for interface-only files
+  - Organize related models and interfaces in dedicated files
+
 - **Variables**:
-  - Use camelCase for variable names
+  - Use camelCase for variable and property names
   - For signals, use '$' prefix (e.g., `$pins`, `$loading`)
-  - For private members, use '\_' prefix (e.g., `_http`, `_url`)
-- **Methods**: Use camelCase for method names (e.g., `getPins`, `followUser`).
-- **Constants**: Use UPPER_SNAKE_CASE for constant values.
+  - For private class members, use '_' prefix (e.g., `_http`, `_authService`)
+  - Use descriptive names that clearly indicate purpose
+
+- **Methods**:
+  - Use camelCase for method names (e.g., `getPins`, `followUser`)
+  - Use verb prefixes for action methods (e.g., `fetchData`, `submitForm`)
+  - Use 'on' prefix for event handlers (e.g., `onClick`, `onSubmit`)
+  - Use 'get' prefix for accessor methods (e.g., `getUserProfile`)
+
+- **Constants**:
+  - Use UPPER_SNAKE_CASE for global constants
+  - Use PascalCase for enum values
+  - Group related constants in a namespace or a dedicated constants file
+
+- **Stores**:
+  - Use PascalCase with 'Store' suffix for store classes (e.g., `AuthStore`, `PinStore`)
+  - Use camelCase for store methods and properties
+  - Use '$' prefix for signal properties in stores
 
 ### Documentation
 
