@@ -16,6 +16,7 @@ import { ImageComponent } from '../Image/Image.component'
   selector: 'app-workspace',
   imports: [ImageComponent],
   templateUrl: './Workspace.component.html',
+  styleUrl: './Workspace.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkspaceComponent {

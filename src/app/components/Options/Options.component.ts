@@ -16,6 +16,7 @@ import { AngularColorfulModule } from 'angular-colorful'
   selector: 'app-options',
   imports: [AngularColorfulModule, NgClass],
   templateUrl: './Options.component.html',
+  styleUrl: './Options.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsComponent implements AfterViewInit {

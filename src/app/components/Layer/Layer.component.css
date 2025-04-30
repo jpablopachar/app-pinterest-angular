@@ -1,0 +1,41 @@
+.layers {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.layers h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.layers p {
+    font-size: 14px;
+    color: gray;
+    margin-top: 4px;
+}
+
+.layer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.layer:hover,
+.layer.selected {
+    background-color: #f0f0f0;
+}
+
+.layerImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+}

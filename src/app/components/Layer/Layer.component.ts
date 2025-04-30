@@ -7,11 +7,7 @@ import { ImageComponent } from '../Image/Image.component'
   selector: 'app-layer',
   imports: [NgClass, ImageComponent],
   templateUrl: './Layer.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './Layer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayerComponent {

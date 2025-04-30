@@ -8,11 +8,20 @@ import { WorkspaceComponent } from '../Workspace/Workspace.component'
   selector: 'app-editor',
   imports: [LayerComponent, WorkspaceComponent, OptionsComponent],
   template: `
-    <app-workspace [$previewImg]="$previewImg()" />
-    <app-options [$previewImg]="$previewImg()" />
-    <app-layer />
+    <div class="editor">
+      <app-layer />
+      <app-workspace [$previewImg]="$previewImg()" />
+      <app-options [$previewImg]="$previewImg()" />
+    </div>
   `,
-  styleUrl: './Editor.component.css',
+  styles: [
+    `
+      .editor {
+        display: flex;
+        gap: 16px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditorComponent {

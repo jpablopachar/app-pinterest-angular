@@ -1,0 +1,53 @@
+.workspace {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9e9e9;
+    padding: 64px 0px;
+}
+
+.canvas {
+    width: 375px;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.text {
+    position: absolute;
+    z-index: 999;
+    max-width: 100%;
+    border: 1px dashed red;
+}
+
+.text input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: inherit;
+    cursor: grab;
+    width: 100%;
+}
+
+.deleteTextButton {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background-color: white;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.canvas img {
+    width: 100%;
+}
