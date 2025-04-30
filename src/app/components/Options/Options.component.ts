@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,12 +7,13 @@ import {
   signal,
 } from '@angular/core'
 import { landscapeSizes, portraitSizes } from '@app/datas/optionData'
-import { PreviewImg } from '@app/models/general'
+import { PortraitSize, PreviewImg } from '@app/models/general'
 import { EditorStore } from '@app/store/editor.store'
+import { AngularColorfulModule } from 'angular-colorful'
 
 @Component({
   selector: 'app-options',
-  imports: [],
+  imports: [AngularColorfulModule, NgClass],
   templateUrl: './Options.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -68,7 +70,21 @@ export class OptionsComponent {
     })
   }
 
-  public handleSizeClick(size: any): void {
+  /**
+   * Maneja el evento de selección de tamaño para el lienzo de edición.
+   * 
+   * Dependiendo del tamaño seleccionado (`size`), calcula la nueva altura del lienzo
+   * manteniendo la proporción adecuada. Si el tamaño es 'original', ajusta la altura
+   * según la orientación original de la imagen y la orientación actual del lienzo.
+   * Si se selecciona un tamaño personalizado, utiliza las dimensiones proporcionadas
+   * por el objeto `PortraitSize`.
+   * 
+   * Finalmente, actualiza las opciones del lienzo en el store del editor con el nuevo
+   * tamaño y altura calculada.
+   * 
+   * @param size - El tamaño seleccionado, que puede ser 'original' o un objeto `PortraitSize`.
+   */
+  public handleSizeClick(size: PortraitSize | string): void {
     let newHeight
 
     if (size === 'original') {
@@ -81,15 +97,56 @@ export class OptionsComponent {
         newHeight = (375 * this.$previewImg().width) / this.$previewImg().height
       }
     } else {
-      newHeight = (375 * size.height) / size.width
+      newHeight =
+        (375 * (size as PortraitSize).height) / (size as PortraitSize).width
     }
 
     this.editorStore.setCanvasOptions({
       ...this.editorStore.$canvasOptions(),
-      size: size === 'original' ? 'original' : size.name,
+      size: size === 'original' ? 'original' : (size as PortraitSize).name,
       height: newHeight!,
     })
   }
 
+  /**
+   * Cambia el tamaño de la fuente en las opciones de texto del editor.
+   *
+   * Este método se activa al producirse un evento (por ejemplo, al cambiar el valor de un input).
+   * Obtiene el nuevo valor del tamaño de fuente desde el evento, lo convierte a número y actualiza
+   * las opciones de texto en el store del editor.
+   *
+   * @param event El evento que dispara el cambio, generalmente un evento de tipo input.
+   */
+  public changeFontSize(event: Event): void {
+    const value = (event.target as HTMLInputElement).value
 
+    this.editorStore.setTextOptions({
+      ...this.editorStore.$textOptions(),
+      fontSize: Number(value),
+    })
+  }
+
+  /**
+   * Cambia el color del texto en las opciones del editor.
+   *
+   * @param color - El nuevo color que se aplicará al texto.
+   */
+  public changeColor(color: string): void {
+    this.editorStore.setTextOptions({
+      ...this.editorStore.$textOptions(),
+      color,
+    })
+  }
+
+  /**
+   * Cambia el color de fondo del lienzo en el editor.
+   *
+   * @param backgroundColor - El nuevo color de fondo que se aplicará al lienzo.
+   */
+  public changeBackgroundColor(backgroundColor: string): void {
+    this.editorStore.setCanvasOptions({
+      ...this.editorStore.$canvasOptions(),
+      backgroundColor,
+    })
+  }
 }

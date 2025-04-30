@@ -5,10 +5,124 @@
         <div>
             <div class="editingOption">
                 <span>Font Size</span>
-                <input type="number" [value]="store.$textOptions().fontSize" (change)="">
+                <input
+                    type="number"
+                    [value]="store.$textOptions().fontSize"
+                    (change)="changeFontSize($event)"
+                />
+            </div>
+            <div class="editingOption">
+                <span>Color</span>
+                <div class="textColor">
+                    <div
+                        class="colorPreview"
+                        [style.backgroundColor]="store.$textOptions().color"
+                        (click)="toggleColorPicker()"
+                    ></div>
+                    @if ($isColorPickerOpen()) {
+                        <div class="colorPicker">
+                            <hex-color-picker
+                                [color]="store.$textOptions().color"
+                                (colorChanged)="changeColor($event)"
+                            ></hex-color-picker>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     } @else {
-
+        <div>
+            <div class="editingOption">
+                <span>Orientation</span>
+                <div class="orientations">
+                    <div
+                        class="orientation"
+                        [ngClass]="
+                            store.$canvasOptions().orientation === 'portrait'
+                                ? 'selected'
+                                : null
+                        "
+                        (click)="handleOrientationClick('portrait')"
+                    >
+                        P
+                    </div>
+                    <div
+                        class="orientation"
+                        [ngClass]="
+                            store.$canvasOptions().orientation === 'landscape'
+                                ? 'selected'
+                                : null
+                        "
+                        (click)="handleOrientationClick('landscape')"
+                    >
+                        L
+                    </div>
+                </div>
+            </div>
+            <div class="editingOption">
+                <span>Size</span>
+                <div class="sizes">
+                    <div
+                        class="size"
+                        [ngClass]="
+                            store.$canvasOptions().size === 'original'
+                                ? 'selected'
+                                : null
+                        "
+                        (click)="handleSizeClick('original')"
+                    >
+                        Original
+                    </div>
+                    @if (store.$canvasOptions().orientation === 'portrait') { @for
+                    (size of portraitSizes; track size.name) {
+                        <div
+                            class="size"
+                            [ngClass]="
+                                store.$canvasOptions().size === size.name
+                                    ? 'selected'
+                                    : null
+                            "
+                            (click)="handleSizeClick(size)"
+                        >
+                            {{ size.name }}
+                        </div>
+                    } } @else { @for (size of landscapeSizes; track size.name) {
+                        <div
+                            class="size"
+                            [ngClass]="
+                                store.$canvasOptions().size === size.name
+                                    ? 'selected'
+                                    : null
+                            "
+                            (click)="handleSizeClick(size)"
+                        >
+                            {{ size.name }}
+                        </div>
+                    } }
+                </div>
+            </div>
+            <div class="editingOption">
+                <span>Background Color</span>
+                <div class="bgColor">
+                    <div class="textColor">
+                        <div
+                            class="colorPreview"
+                            [style.backgroundColor]="
+                                store.$canvasOptions().backgroundColor
+                            "
+                            (click)="toggleColorPicker()"
+                        ></div>
+                        @if ($isColorPickerOpen()) {
+                            <div class="colorPicker">
+                                <hex-color-picker
+                                    [color]="store.$canvasOptions().backgroundColor"
+                                    (colorChanged)="changeBackgroundColor($event)"
+                                ></hex-color-picker>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
