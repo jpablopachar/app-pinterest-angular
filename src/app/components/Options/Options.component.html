@@ -1,1 +1,14 @@
-<p>Options works!</p>,
+@let store = editorStore;
+
+<div class="options">
+    @if (store.$selectedLayer() === 'text') {
+        <div>
+            <div class="editingOption">
+                <span>Font Size</span>
+                <input type="number" [value]="store.$textOptions().fontSize" (change)="">
+            </div>
+        </div>
+    } @else {
+
+    }
+</div>

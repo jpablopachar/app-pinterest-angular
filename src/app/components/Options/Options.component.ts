@@ -16,7 +16,7 @@ import { EditorStore } from '@app/store/editor.store'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsComponent {
-  private _editorStore = inject(EditorStore)
+  public editorStore = inject(EditorStore)
 
   public $previewImg = input.required<PreviewImg>()
 
@@ -60,8 +60,8 @@ export class OptionsComponent {
       newHeight = (375 * this.$previewImg().width) / this.$previewImg().height
     }
 
-    this._editorStore.setCanvasOptions({
-      ...this._editorStore.$canvasOptions(),
+    this.editorStore.setCanvasOptions({
+      ...this.editorStore.$canvasOptions(),
       orientation,
       size: 'original',
       height: newHeight,
@@ -74,7 +74,7 @@ export class OptionsComponent {
     if (size === 'original') {
       if (
         this.originalOrientation ===
-        this._editorStore.$canvasOptions().orientation
+        this.editorStore.$canvasOptions().orientation
       ) {
         newHeight = (375 * this.$previewImg().height) / this.$previewImg().width
       } else {
@@ -84,10 +84,12 @@ export class OptionsComponent {
       newHeight = (375 * size.height) / size.width
     }
 
-    this._editorStore.setCanvasOptions({
-      ...this._editorStore.$canvasOptions(),
+    this.editorStore.setCanvasOptions({
+      ...this.editorStore.$canvasOptions(),
       size: size === 'original' ? 'original' : size.name,
       height: newHeight!,
     })
   }
+
+
 }
