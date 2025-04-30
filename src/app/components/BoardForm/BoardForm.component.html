@@ -1,0 +1,17 @@
+<div class="boardForm">
+    <div class="boardFormContainer">
+        <div class="boardFormClose" (click)="$setIsNewBoardOpen.emit(false)">
+            <app-image
+                [$src]="'/general/cancel.svg'"
+                [$width]="20"
+                [$height]="20"
+                [$alt]="''"
+            />
+        </div>
+        <form (ngSubmit)="handleSubmit($event)">
+            <h1>Create a new board</h1>
+            <input type="text" placeholder="Board Title" />
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</div>

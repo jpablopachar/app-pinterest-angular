@@ -35,6 +35,6 @@ export class PostPageComponent {
    * @returns {void} No retorna ningún valor.
    */
   public goBack() {
-    this._router.navigate(['..'], { relativeTo: this._route })
+    this._router.navigate(['/'], { relativeTo: this._route })
   }
 }

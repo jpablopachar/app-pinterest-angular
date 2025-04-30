@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { ResourceResponse } from '@app/models/general'
-import { PinInteractionCheckResponse, PinsParams } from '@app/models/pin'
+import { Pin, PinInteractionCheckResponse, PinsParams } from '@app/models/pin'
 import { ActionPin } from '@app/types/actionPin'
 import { environment } from '@src/environments/environment'
 import { Observable } from 'rxjs'
@@ -87,5 +87,17 @@ export class PinService {
       },
       { withCredentials: true },
     )
+  }
+
+  /**
+   * Agrega un nuevo pin enviando los datos del formulario al servidor.
+   *
+   * @param formData - Los datos del formulario que representan el nuevo pin a crear.
+   * @returns Un observable que emite el pin creado.
+   */
+  public addPin(formData: FormData): Observable<Pin> {
+    return this._http.post<Pin>(`${this._url}`, formData, {
+      withCredentials: true,
+    })
   }
 }

@@ -1,1 +1,73 @@
-
+<div class="createPage">
+    <div class="createTop">
+        <h1>{{ $isEditing() ? 'Design your Pin' : 'Create Pin' }}</h1>
+        <button type="button" (click)="handleSubmit()">{{ $isEditing() ? 'Done' : 'Publish' }}</button>
+    </div>
+    @if ($isEditing()) {
+        <app-editor [$previewImg]="$previewImg()" />
+    } @else {
+        <div class="createBottom">
+            @if ($previewImg().url) {
+                <div class="preview">
+                    <img [src]="$previewImg().url" alt="" />
+                    <div class="editIcon" (click)="$isEditing.set(true)">
+                        <app-image [$src]="'/general/edit.svg'" [$alt]="''" />
+                    </div>
+                </div>
+            } @else {
+                <label for="file" class="upload">
+                    <div class="uploadTitle">
+                        <app-image [$src]="'/general/upload.svg'" [$alt]="''" />
+                        <span>Choose a file</span>
+                    </div>
+                    <div class="uploadInfo">
+                        We recommend using high quality .jpg files less than 20 MB or .mp4 files less than 200 MB.
+                    </div>
+                </label>
+                <input id="file" type="file" (change)="handleFile($event)" hidden>
+            }
+            <form class="createForm" [formGroup]="createPageForm">
+                <div class="createFormItem">
+                    <label for="title">Title</label>
+                    <input id="title" type="text" name="title" placeholder="Add a title" formControlName="title" />
+                </div>
+                <div class="createFormItem">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" type="text" rows="6" placeholder="Add a description" formControlName="description" ></textarea>
+                </div>
+                <div class="createFormItem">
+                    <label for="link">Link</label>
+                    <input id="link" type="text" name="link" placeholder="Add a link" formControlName="link" />
+                </div>
+                @let boards = $resource;
+                @if (!boards.isLoading() || !boards.error()) {
+                    <div class="createFormItem">
+                        <label for="board">Board</label>
+                        <select id="board" name="board" formControlName="board">
+                            <option value="">Select a board</option>
+                            @for (board of boards.value(); track board._id) {
+                                <option [value]="board._id">{{ board.title }}</option>
+                            }
+                        </select>
+                        <div class="newBoard">
+                            @if ($newBoard()) {
+                                <div class="newBoardContainer">
+                                    <div class="newBoardItem">{{ $newBoard() }}</div>
+                                </div>
+                            }
+                            <div class="createBoardButton" (click)="handleNewBoard()">Create new board</div>
+                        </div>
+                    </div>
+                }
+                <div class="createFormItem">
+                    <label for="tags">Tagged topics</label>
+                    <input id="tags" type="text" name="tags" placeholder="Add tags" formControlName="tags" />
+                    <small>Don&apos;t worry, people won&apos;t see your tags</small>
+                </div>
+            </form>
+            @if ($isNewBoardOpen()) {
+                <app-board-form [$newBoard]="$newBoard()" [$isNewBoardOpen]="$isNewBoardOpen()" ($setNewBoard)="$newBoard.set($event)" ($setIsNewBoardOpen)="$isNewBoardOpen.set($event)" />
+            }
+        </div>
+    }
+</div>

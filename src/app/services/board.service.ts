@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { ResourceResponse } from '@app/models/general'
 import { environment } from '@src/environments/environment'
 
 @Injectable({
@@ -21,6 +22,18 @@ export class BoardService {
     return {
       url: this._url,
       params: { userId },
+    }
+  }
+
+  /**
+   * Obtiene los tableros asociados a un usuario específico por su ID.
+   *
+   * @param userId - El identificador único del usuario cuyos tableros se desean obtener.
+   * @returns Un objeto `ResourceResponse` que contiene la URL para acceder a los tableros del usuario.
+   */
+  public getBoardsByUserId(userId: string): ResourceResponse {
+    return {
+      url: `${this._url}/${userId}`,
     }
   }
 }
