@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common'
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
@@ -17,7 +18,7 @@ import { AngularColorfulModule } from 'angular-colorful'
   templateUrl: './Options.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OptionsComponent {
+export class OptionsComponent implements AfterViewInit {
   public editorStore = inject(EditorStore)
 
   public $previewImg = input.required<PreviewImg>()
@@ -27,10 +28,14 @@ export class OptionsComponent {
   public landscapeSizes = landscapeSizes
   public portraitSizes = portraitSizes
 
-  public originalOrientation =
-    this.$previewImg().width < this.$previewImg().height
-      ? 'portrait'
-      : 'landscape'
+  public originalOrientation: string | null = null
+
+  ngAfterViewInit(): void {
+    this.originalOrientation =
+      this.$previewImg().width < this.$previewImg().height
+        ? 'portrait'
+        : 'landscape'
+  }
 
   /**
    * Alterna el estado de visibilidad del selector de color.
@@ -72,16 +77,16 @@ export class OptionsComponent {
 
   /**
    * Maneja el evento de selección de tamaño para el lienzo de edición.
-   * 
+   *
    * Dependiendo del tamaño seleccionado (`size`), calcula la nueva altura del lienzo
    * manteniendo la proporción adecuada. Si el tamaño es 'original', ajusta la altura
    * según la orientación original de la imagen y la orientación actual del lienzo.
    * Si se selecciona un tamaño personalizado, utiliza las dimensiones proporcionadas
    * por el objeto `PortraitSize`.
-   * 
+   *
    * Finalmente, actualiza las opciones del lienzo en el store del editor con el nuevo
    * tamaño y altura calculada.
-   * 
+   *
    * @param size - El tamaño seleccionado, que puede ser 'original' o un objeto `PortraitSize`.
    */
   public handleSizeClick(size: PortraitSize | string): void {

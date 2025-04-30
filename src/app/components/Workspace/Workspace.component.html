@@ -1,0 +1,39 @@
+@let store = editorStore;
+
+<div class="workspace">
+    @let canvasOptions = store.canvasOptions();
+    <div
+        #containerRef
+        class="canvas"
+        [style]="{
+            height: canvasOptions.height,
+            backgroundColor: canvasOptions.backgroundColor
+        }"
+        (mousemove)="handleMouseMove($event)"
+        (mouseup)="handleMouseUp()"
+        (mouseleave)="handleMouseLeave()"
+    >
+        <img [src]="$previewImg().url" alt="''" />
+        @let textOptions = store.textOptions(); @if (textOptions.text) {
+        <div
+            #itemRef
+            class="text"
+            [style]="{
+                left: textOptions.left,
+                top: textOptions.top,
+                fontSize: textOptions.fontSize
+            }"
+        >
+            <input
+                type="text"
+                [style.color]="textOptions.color"
+                [value]="textOptions.text"
+                (change)="handleTextChange($event)"
+            />
+            <div class="deleteTextButton" (click)="handleDeleteText()">
+                <app-image [$src]="'/general/delete.svg'" [$alt]="''" />
+            </div>
+        </div>
+        }
+    </div>
+</div>
